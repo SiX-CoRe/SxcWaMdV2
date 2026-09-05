@@ -34,7 +34,7 @@ global.nomor = "628" // nomor bot
 global.botname = 'SXCWA-MD'
 global.botName = global.botname
 global.ownername = 'lumnztyz6x'
-global.saluran = '120363423467233881@newsletter' // id ch
+global.saluran = '' // id ch
 global.autoBackup = true // Auto backup SC setiap jam 12 malam (00:00 WIB)
 
 /*============= STICKER CONFIG =============*/
