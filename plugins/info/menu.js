@@ -158,7 +158,7 @@ ${helpList}
 │• \`.menu prem\` ➔ tampilkan fitur khusus premium
 │• \`.owner\` ➔ chat pembuat bot
 ╰─────────────────────╯
-> https://github.com/SiX-CoRe - Source Code No Enc
+> https://github.com/SiX-CoRe/SxcWaMdV2 - Source Code No Enc
 `;
 
         const teksdx = `terima kasih telah menggunakan ${botInfo.name.toLowerCase()}!\n\n> © _sixcorecomunity_`;
