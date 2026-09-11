@@ -58,7 +58,7 @@ let handler = async (m, {
 
         function getBadge(plugin) {
             
-            if (plugin.premium) return ' 🌟 (PREM)';
+            if (plugin.premium) return ' ✨';
             if (plugin.limit) return ' ⚡';
             return '';
         }
@@ -97,7 +97,7 @@ let handler = async (m, {
             return Object.keys(tagCount)
                 .map(tag => {
                     const helpList = (tagHelpMapping[tag] || [])
-                        .map((item) => `  │ ✧ ${usedPrefix}${item.help}${item.badge}`)
+                        .map((item) => `├  ${usedPrefix}${item.help}${item.badge}`)
                         .join("\n");
 
                     return `╭── [ *${tag.toUpperCase()}* ]
@@ -115,7 +115,7 @@ ${helpList}
         
         let userStatus = '👤 Free User';
         if (isROwner || isOwner) userStatus = '👑 Owner';
-        else if (isPremium) userStatus = '🌟 Premium';
+        else if (isPremium) userStatus = '✨ Premium';
 
         let curLimit = global.db?.data?.users?.[m._normSender || m.sender]?.limit;
         if (isOwner) curLimit = 'Unlimited (∞)';
@@ -139,29 +139,22 @@ ${helpList}
 
         const stylishHeader = `
 ╭── [ *SXCWA-MD* ] ──╮
-│ ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+│┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 │╭──── [ ✨ *INFORMATION* ✨ ]
 │├ Name   : *${String(user.name).toLowerCase()}*
-│├ Number : *${user.number}*
-│├ Limit  : *${curLimit}*
-│└ Role   : *${String(user.status).toLowerCase()}*
-│
+│├─ Number : *${user.number}*
+│├── Role   : *${String(user.status).toLowerCase()}*
+│└─── Limit  : *${curLimit}*
+│┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 │╭───── [ 🤖 *Status Bot* 🤖 ]
-│├ time     : *${getIndonesiaTime()} wib*
-│├ date     : *${getIndonesiaDate().toLowerCase()}*
-│├ plugins  : *${plugins.length} file*
-│└ server   : *active (fast response)*
-│
-│*quick navigation:*
-│• \`.menu all\` ➔ tampilkan seluruh fitur bot
-│• \`.menu list\` ➔ tampilkan kategori fitur
-│• \`.menu prem\` ➔ tampilkan fitur khusus premium
-│• \`.owner\` ➔ chat pembuat bot
-╰─────────────────────╯
-> https://github.com/SiX-CoRe/SxcWaMdV2 - Source Code No Enc
-`;
+│├ server   : *active (fast response)*
+│├─ time     : *${getIndonesiaTime()} wib*
+│├── date     : *${getIndonesiaDate().toLowerCase()}*
+│└─── plugins  : *${plugins.length} file*
+│┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+╰──────────────────╯`;
 
-        const teksdx = `terima kasih telah menggunakan ${botInfo.name.toLowerCase()}!\n\n> © _sixcorecomunity_`;
+        const teksdx = ``;
 
         let finalCaption = '';
         let normalizedQuery = (text || '').trim().toLowerCase();
@@ -176,12 +169,12 @@ ${helpList}
                 if (plugin && !plugin.disabled && plugin.premium) {
                     const helpArray = Array.isArray(plugin.help) ? plugin.help : (plugin.help ? [plugin.help] : []);
                     helpArray.forEach(h => {
-                        premItems.push(`  ┣ ✧ ${usedPrefix}${h}${getBadge(plugin)}`);
+                        premItems.push(`├ ${usedPrefix}${h}${getBadge(plugin)}`);
                     });
                 }
             });
-            const listStr = premItems.length > 0 ? premItems.join('\n') : '  ┣ ✧ Belum ada fitur premium.';
-            finalCaption = `${stylishHeader}${readmore}\n\n*🌟 FITUR KHUSUS USER PREMIUM 🌟*\n\n╭── [ *PREMIUM EXCLUSIVE* ]\n${listStr}\n╰──────────────\n\n${teksdx}`;
+            const listStr = premItems.length > 0 ? premItems.join('\n') : '├ Belum ada fitur premium.';
+            finalCaption = `${stylishHeader}${readmore}\n\n*✨ FITUR KHUSUS USER PREMIUM ✨*\n\n╭── [ *PREMIUM EXCLUSIVE* ]\n${listStr}\n╰──────────────\n\n${teksdx}`;
         } else if (normalizedQuery === "list") {
             const allTags = [];
             Object.values(plugins).forEach(plugin => {
@@ -195,14 +188,14 @@ ${helpList}
                 }
             });
 
-            if (!allTags.includes('premium')) allTags.push('premium (🌟)');
+            if (!allTags.includes('premium')) allTags.push('premium (✨)');
             
 
             allTags.sort();
             let tagsList = '';
             for (let i = 0; i < allTags.length; i += 3) {
                 const row = allTags.slice(i, i + 3);
-                const formattedRow = row.map(tag => `  ┣ ${tag.toLowerCase()}`).join('\n');
+                const formattedRow = row.map(tag => `├ ${tag.toLowerCase()}`).join('\n');
                 tagsList += formattedRow + '\n';
             }
 
@@ -213,7 +206,7 @@ ${helpList}
             const filteredCommands = getPluginsByTags(tags);
             finalCaption = `${stylishHeader}${readmore}\n\n*filtered commands [${tags.join(', ').toLowerCase()}]*\n\n${filteredCommands}\n\n${teksdx}`;
         } else {
-            finalCaption = `${stylishHeader}${readmore}\n\n*quick selection:*\n• \`.menu all\` ➔ tampilkan seluruh fitur bot\n• \`.menu list\` ➔ tampilkan kategori fitur\n• \`.menu prem\` ➔ tampilkan fitur khusus premium\n\n${teksdx}`;
+            finalCaption = `${stylishHeader}${readmore}${teksdx}`;
         }
 
         let aestheticCaption = finalCaption.toLowerCase();
